@@ -68,7 +68,7 @@ export default function ScienceTipBox() {
     setAnimationKey(Date.now());
   };
 
-  // Handle tip change timer
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (!collapsed) {
       const remaining = TIP_INTERVAL - timerElapsed;
@@ -92,6 +92,7 @@ export default function ScienceTipBox() {
       clearInterval(spinnerIntervalRef.current);
     };
   }, [collapsed, timerStart, timerElapsed, tips, tipIndex]);
+  // ^^^ Warning suppressed above
 
   // On mount: fetch all tips once
   useEffect(() => {
