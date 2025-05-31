@@ -1,0 +1,144 @@
+/* === Nav Link Styles === */
+.nav-link {
+  position: relative;
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 5px 10px;
+  transition: color 0.3s ease;
+  font-weight: 500;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  height: 2px;
+  width: 0;
+  background-color: #a5d6a7;
+  transition: width 0.3s ease, left 0.3s ease;
+}
+.nav-link:hover {
+  color: #a5d6a7;
+}
+.nav-link:hover::after {
+  width: 100%;
+  left: 0;
+}
+.nav-link:focus {
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+
+/* === Hamburger Icon Container === */
+.navbar-hamburger {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 200;
+  width: 40px;
+  height: 40px;
+}
+
+/* === Hamburger Icon Lines === */
+.navbar-hamburger span {
+  display: block;
+  width: 28px;
+  height: 4px;
+  background: #fff;
+  margin: 4px 0;
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* === Hamburger “X” State When Open === */
+.navbar-hamburger.open span:nth-child(1) {
+  transform: rotate(45deg) translateY(8px);
+}
+.navbar-hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+.navbar-hamburger.open span:nth-child(3) {
+  transform: rotate(-45deg) translateY(-8px);
+}
+
+/* === Responsive Navbar Behavior (Mobile ≤900px) === */
+@media (max-width: 900px) {
+  .navbar-hamburger {
+    display: flex !important;
+  }
+
+  .navbar-links {
+    display: none;
+    position: absolute;
+    top: 70px; /* Height of your navbar */
+    left: 0;
+    right: 0;
+    height: calc(100vh - 70px); /* Fill below navbar */
+    background: #286e41;
+    overflow-y: auto;
+    z-index: 100;
+    flex-direction: column;
+  }
+  .navbar-links.open {
+    display: flex;
+    animation: menuFadeIn 0.3s ease-out;
+  }
+  .navbar-links.closing {
+    display: flex;
+    animation: menuFadeOut 0.3s ease-in forwards;
+  }
+  .navbar-links.open .nav-link,
+  .navbar-links.closing .nav-link {
+    width: 100%;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid #388e3c;
+    font-size: 1.15rem;
+    border-radius: 0;
+    color: #fff;
+    transition: background 0.2s;
+  }
+  .navbar-links.open .nav-link:hover,
+  .navbar-links.closing .nav-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* === Responsive Navbar Behavior (Desktop ≥901px) === */
+@media (min-width: 901px) {
+  .navbar-hamburger {
+    display: none !important;
+  }
+  .navbar-links {
+    display: flex !important;
+    position: static !important;
+    flex-direction: row !important;
+    background: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    gap: 15px !important;
+    align-items: center !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+  .nav-link {
+    display: flex;
+    align-items: center;
+    height: 60px;
+    padding-top: 6px;
+    color: #fff;
+  }
+}
+
+/* === Fade-In/Out for Menu Links === */
+@keyframes menuFadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes menuFadeOut {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-10px); }
+}

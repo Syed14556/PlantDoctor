@@ -1,0 +1,621 @@
+/* === Animated Background Styles === */
+.background-transition {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+  animation: backgroundFadeIn 1.2s cubic-bezier(0.4,0,0.2,1) forwards;
+  opacity: 0;
+  filter: blur(8px);
+  transition: opacity 0.8s, filter 0.8s;
+}
+.background-transition.about-bg {
+  display: none;
+}
+@keyframes backgroundFadeIn {
+  from { opacity: 0; filter: blur(16px); }
+  60% { opacity: 0.8; filter: blur(2px); }
+  to   { opacity: 0.92; filter: blur(0); }
+}
+
+/* === Black Fade Overlay === */
+.black-fade-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  z-index: -1;
+  pointer-events: none;
+  animation: blackFadeOut 2.5s cubic-bezier(0.4,0,0.2,1) forwards;
+}
+@keyframes blackFadeOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+/* === Video Fade-In Animation === */
+@keyframes videoFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.background-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -3;
+  pointer-events: none;
+  opacity: 1;
+  animation: videoFadeIn 0.0s cubic-bezier(0.4,0,0.2,1) forwards;
+  filter: blur(4px);
+}
+
+/* === ChatPage Background Blur Overlay === */
+.chatgpt-bg-blur {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0; /* Behind .chatgpt-root, above background video */
+  pointer-events: none;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* === Page Container === */
+.page-container {
+  position: relative;
+  min-height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+/* === Reset & Base Styles === */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f9f4;
+  color: #333;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+h1 {
+  color: #2e7d32;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  color: #388e3c;
+  font-size: 1.8rem;
+  margin-top: 2rem;
+}
+
+p {
+  line-height: 1.6;
+}
+
+/* === Buttons === */
+button {
+  background-color: #66bb6a;
+  color: white;
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+button:hover {
+  background-color: #43a047;
+}
+button:disabled {
+  background-color: #a5d6a7;
+  cursor: not-allowed;
+}
+
+/* === Inline Spinner (Button Loader) === */
+.spinner {
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #ffffff;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* === File Upload === */
+input[type="file"] {
+  margin: 1rem 0;
+}
+
+/* === Navigation Buttons === */
+.nav-buttons {
+  margin: 2rem 0;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+.nav-buttons button {
+  background-color: #81c784;
+}
+
+/* === Sections === */
+.section {
+  padding: 2rem;
+  background-color: white;
+  border-radius: 12px;
+  margin: 1rem 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* === Animations === */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-in, .fancy-background, .section {
+  animation: fadeIn 2.5s cubic-bezier(0.4,0,0.2,1) forwards !important;
+}
+
+/* === Fancy Background Card (Main Content Box) === */
+.fancy-background {
+  position: relative;
+  z-index: 10;
+  background: rgba(249, 249, 249, 0.85);
+  transition: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  max-width: 900px;
+  margin: 2.5rem auto;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+
+/* === Chat Container (matches .fancy-background) === */
+.chatgpt-root {
+  display: flex;
+  flex-direction: row;
+  max-width: 900px;
+  width: 95%;
+  min-height: 70vh;
+  margin: 40px auto;
+  background: rgba(249, 249, 249, 0.85);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  overflow: hidden;
+  position: relative;
+  padding: 0;
+  animation: fadeIn 2.5s cubic-bezier(0.4,0,0.2,1) forwards;
+  z-index: 1;
+}
+
+/* === Sidebar (History) === */
+.chatgpt-slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 250px;
+  background: #f0f4f8;
+  border-right: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+  z-index: 2;
+  will-change: transform;
+  box-shadow: 2px 0 16px rgba(60,120,60,0.07);
+}
+.chatgpt-slider.open {
+  transform: translateX(0);
+}
+.chatgpt-slider.closed {
+  transform: translateX(-100%);
+}
+
+/* === Sidebar Header and Buttons === */
+.chatgpt-slider-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid #ccc;
+  background: #e2e8f0;
+  position: relative;
+}
+.chatgpt-slider-header-btns {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+}
+.chatgpt-slider-header-btns button {
+  background: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  width: 32px;
+  height: 32px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background 0.18s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.chatgpt-slider-header-btns button:hover {
+  background: #43a047;
+}
+.chatgpt-slider-close {
+  background: #e57373;
+}
+.chatgpt-slider-close:hover {
+  background: #d32f2f;
+}
+
+/* === Sidebar List === */
+.chatgpt-slider-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.5rem;
+}
+.chatgpt-slider-item {
+  background: white;
+  padding: 0.6rem;
+  margin-bottom: 0.4rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.2s ease;
+}
+.chatgpt-slider-item:hover {
+  background: #dde4ed;
+}
+.chatgpt-slider-item.selected {
+  background: #c0d4e8;
+  font-weight: bold;
+}
+.chatgpt-rename-input {
+  width: 100%;
+  padding: 0.3rem;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+}
+
+/* === PNG Edit/Delete Icon Buttons (COMPACT) === */
+.chatgpt-slider-edit,
+.chatgpt-slider-delete {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-left: 2px;
+  cursor: pointer;
+  border-radius: 6px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.18s;
+}
+.chatgpt-slider-edit:hover {
+  background: #e0f2f1;
+}
+.chatgpt-slider-delete:hover {
+  background: #ffeaea;
+}
+.edit-icon,
+.delete-icon {
+  width: 15px;
+  height: 15px;
+  display: block;
+  pointer-events: none;
+}
+
+/* === Collapse/Expand Arrow Toggle (rectangle, fade in) === */
+.chatgpt-slider-toggle {
+  position: absolute;
+  top: 24px;
+  left: 0;
+  background: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  width: 40px;
+  height: 36px;
+  font-size: 1.3rem;
+  cursor: pointer;
+  z-index: 3;
+  box-shadow: 0 2px 8px rgba(60,120,60,0.10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s cubic-bezier(.4,0,.2,1), background 0.2s;
+}
+.chatgpt-slider-toggle.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+.chatgpt-slider-toggle:hover {
+  background: #43a047;
+}
+
+/* === Main Chat Pane === */
+.chatgpt-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  min-width: 0;
+  margin-left: 250px;
+  transition: margin-left 0.3s cubic-bezier(.4,0,.2,1);
+}
+.chatgpt-slider.closed ~ .chatgpt-main {
+  margin-left: 0;
+}
+.chatgpt-main-header {
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  color: #2e7d32;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+}
+
+/* === Messages === */
+.chat-box {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+}
+.chat-bubble {
+  max-width: 70%;
+  margin-bottom: 0.8rem;
+  padding: 0.8rem;
+  border-radius: 12px;
+  line-height: 1.5;
+  word-wrap: break-word;
+  opacity: 0;
+  animation: bubbleFadeIn 0.3s ease forwards;
+}
+.user-bubble {
+  background: #d1e7dd;
+  align-self: flex-end;
+}
+.bot-bubble {
+  background: #f8f9fa;
+  border: 1px solid #ccc;
+  align-self: flex-start;
+}
+@keyframes bubbleFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* === Input === */
+.chat-input-bar {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+.chat-input-bar input {
+  flex: 1;
+  padding: 0.8rem;
+  border: 1px solid #aaa;
+  border-radius: 8px;
+}
+.chat-input-bar button {
+  padding: 0.8rem 1.2rem;
+  background: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.chat-input-bar button:hover {
+  background: #43a047;
+}
+.chat-input-bar button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* === Loading Dots === */
+.loading-dots {
+  color: #4caf50;
+  font-weight: bold;
+}
+
+/* === About Page Checklist === */
+.about-checklist {
+  list-style: none;
+  padding-left: 0;
+  margin: 1.5rem 0;
+  text-align: left;
+}
+.about-checklist li {
+  margin-left: 0;
+  padding-left: 0;
+  text-indent: 0;
+  margin-bottom: 0.7em;
+}
+
+/* === Loading Wrapper === */
+.loading-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  width: 100%;
+}
+
+/* === SDG Cards Grid === */
+.sdg-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  margin: 30px 0 10px 0;
+}
+.sdg-card {
+  background: #e8f5e9;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.10);
+  padding: 20px 18px 16px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 170px;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.sdg-card:hover {
+  box-shadow: 0 6px 18px rgba(56, 142, 60, 0.13);
+  transform: translateY(-4px) scale(1.025);
+}
+.sdg-icon {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+.sdg-card strong {
+  font-size: 1.08rem;
+  margin-bottom: 6px;
+  color: #2e7d32;
+}
+.sdg-card p {
+  margin: 0;
+  color: #333;
+  font-size: 1rem;
+}
+
+/* === Glow Animations === */
+@keyframes glow {
+  0%, 100% {
+    text-shadow: 0 0 8px #4caf50, 0 0 16px #4caf50, 0 0 24px #a5d6a7, 0 0 32px #4caf50;
+    color: #4caf50;
+  }
+  50% {
+    text-shadow: 0 0 12px #fff, 0 0 24px #fff, 0 0 36px #fff, 0 0 48px #fff;
+    color: #fff;
+  }
+}
+.glowing-logo-text {
+  animation: glow 2.5s ease-in-out infinite;
+  font-weight: 900;
+  user-select: none;
+  color: #4caf50;
+}
+@keyframes glow-filter {
+  0%, 100% {
+    filter: drop-shadow(0 0 8px #4caf50) drop-shadow(0 0 16px #a5d6a7);
+  }
+  50% {
+    filter: drop-shadow(0 0 24px #fff) drop-shadow(0 0 32px #fff);
+  }
+}
+.glowing-logo {
+  animation: glow-filter 2.5s ease-in-out infinite;
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  cursor: default;
+  transition: filter 0.3s ease-in-out;
+}
+
+/* === Nav Link Styles === */
+.nav-link {
+  position: relative;
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 5px 10px;
+  transition: color 0.3s ease;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  height: 2px;
+  width: 0;
+  background-color: #a5d6a7;
+  transition: width 0.3s ease, left 0.3s ease;
+}
+.nav-link:hover {
+  color: #a5d6a7;
+}
+.nav-link:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+/* === Responsive === */
+@media (max-width: 700px) {
+  .fancy-background,
+  .chatgpt-root {
+    width: 100vw;
+    min-height: 100vh;
+    border-radius: 0;
+    margin: 0;
+    max-width: 100vw;
+  }
+  .chatgpt-slider {
+    width: 200px;
+    left: 0;
+    top: 0;
+    height: 100%;
+    box-shadow: 2px 0 16px rgba(60,120,60,0.13);
+  }
+  .chatgpt-main {
+    margin-left: 200px;
+    padding: 0.5rem;
+  }
+  .chatgpt-slider.closed ~ .chatgpt-main {
+    margin-left: 0;
+  }
+}
+.background-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -2;
+  pointer-events: none;
+  opacity: 1;
+  filter: blur(4px);
+}

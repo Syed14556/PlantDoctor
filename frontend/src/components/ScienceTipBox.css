@@ -1,0 +1,287 @@
+/* ================================
+   BASE CONTAINER (Fixed Bottom Right)
+   ================================ */
+.science-tip-box {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  background: rgba(255, 255, 255, 0.97);
+  border-radius: 16px;
+  padding: 0;
+  width: 260px;
+  max-height: 240px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+  font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow: hidden;
+  z-index: 1000;
+  opacity: 1;
+  transform: scale(1);
+  animation: gentleAppear 0.7s cubic-bezier(0.16, 0.87, 0.3, 1.05);
+  transition:
+    width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+    max-height 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity 0.35s cubic-bezier(0.4,0,0.2,1),
+    transform 0.35s cubic-bezier(0.4,0,0.2,1);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* ================================
+   HEADER (Title and Close Button)
+   ================================ */
+.tip-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 0.8rem;
+  position: relative;
+  background: rgba(240, 250, 240, 0.6);
+  border-bottom: 1px solid rgba(46, 125, 50, 0.08);
+}
+
+.tip-title {
+  margin: 0;
+  color: #2e7d32;
+  font-size: 1.12rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: -0.01em;
+  flex: 1;
+  min-width: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.tip-title-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 700;
+}
+
+/* ================================
+   Spinner Wrapper (❌ or 🔒)
+   ================================ */
+.spinner-wrapper {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  min-height: 28px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-left: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.spinner-wrapper:hover {
+  transform: scale(1.08);
+}
+
+.science-tip-box.collapsed .spinner-wrapper {
+  margin-left: 0;
+}
+
+.spinner-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%) rotate(-90deg);
+  pointer-events: none;
+}
+
+/* Spinner path: progress is now controlled by React, not CSS animation */
+.spinner-path {
+  stroke: #2e7d32;
+  stroke-width: 3;
+  fill: none;
+  transition: stroke-dashoffset 0.1s linear;
+}
+
+/* Centered icon (❌ or 🔒) */
+.collapse-icon,
+.lock-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.82rem;
+  color: #2e7d32;
+  user-select: none;
+  pointer-events: none;
+  font-weight: 900;
+  line-height: 1;
+  text-align: center;
+  transition: opacity 0.25s ease;
+}
+
+/* ================================
+   TIP BODY (Tip Content)
+   ================================ */
+.tip-body {
+  padding: 0.8rem 0.8rem 0.8rem;
+  overflow: hidden; /* Hide overflow for max-height animation */
+  max-height: 110px;
+  opacity: 1;
+  transition:
+    max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: max-height, opacity;
+}
+
+.tip-body.collapsing {
+  max-height: 0;
+  opacity: 0;
+  transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+}
+
+.tip-content {
+  color: #333;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  overflow-y: auto;
+  font-weight: 400;
+  opacity: 1;
+  transition: opacity 0.4s ease;
+  will-change: opacity;
+}
+
+.tip-content.fade-out {
+  opacity: 0;
+}
+
+.tip-content.fade-in {
+  opacity: 1;
+}
+
+/* Optional: smooth scrollbar fade */
+.tip-content::-webkit-scrollbar {
+  transition: background-color 0.4s ease;
+}
+
+
+/* Tip Source */
+.tip-source {
+  margin-top: 0.5rem;
+  font-size: 0.76rem;
+  color: #666;
+  text-align: right;
+  font-style: italic;
+  opacity: 0.85;
+  padding-right: 4px;
+}
+
+/* ================================
+   COLLAPSED STATE (🔒 icon only)
+   ================================ */
+.science-tip-box.collapsed {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  max-height: 52px;
+  padding: 0;
+  cursor: pointer;
+  opacity: 0.8;
+  transform: scale(0.95);
+  transition:
+    width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+    max-height 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity 0.35s cubic-bezier(0.4,0,0.2,1),
+    transform 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+
+.science-tip-box.collapsed .tip-header,
+.science-tip-box.collapsed .tip-body {
+  display: none;
+}
+
+.science-tip-box.collapsed .lock-icon {
+  font-size: 1.05rem;
+}
+
+/* ================================
+   SMOOTH APPEAR ANIMATION
+   ================================ */
+@keyframes gentleAppear {
+  0% {
+    opacity: 0;
+    transform: translateY(16px) scale(0.94);
+    filter: blur(2px);
+  }
+  70% {
+    opacity: 0.95;
+    transform: translateY(-4px) scale(1.02);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ================================
+   Tip content scrollbar styling
+   ================================ */
+.tip-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.tip-content::-webkit-scrollbar-track {
+  background: rgba(200, 230, 200, 0.2);
+  border-radius: 10px;
+}
+
+.tip-content::-webkit-scrollbar-thumb {
+  background: rgba(46, 125, 50, 0.3);
+  border-radius: 10px;
+}
+
+.tip-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(46, 125, 50, 0.5);
+}
+
+/* ================================
+   RESPONSIVE (Mobile Friendly)
+   ================================ */
+@media (max-width: 480px) {
+  .science-tip-box {
+    width: 92%;
+    max-height: 220px;
+    bottom: 0.8rem;
+    right: 0.5rem;
+    left: auto;
+  }
+
+  .spinner-wrapper {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    min-height: 24px;
+  }
+
+  .collapse-icon,
+  .lock-icon {
+    font-size: 0.72rem;
+  }
+
+  .tip-title {
+    font-size: 1.02rem;
+  }
+
+  .tip-content {
+    font-size: 0.88rem;
+    max-height: 100px;
+  }
+  
+  .science-tip-box.collapsed {
+    width: 50px;
+    max-height: 50px;
+  }
+}
